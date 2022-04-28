@@ -1,9 +1,13 @@
-# Project Name: Movies-Library Project Version: 1.0.0
+# Project Name: Movies-Library Project Version: 1.1.0
 
 **Author Name: Bnan Zhran**
 
 ## WRRC
 ![WRRC pic](./assest/Capture2.PNG)
+
+**My Project tree**
+
+![WRRC pic](./assest/Capture22.PNG)
 
 ## Overview
 
