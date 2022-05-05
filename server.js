@@ -2,21 +2,69 @@
 
 ///https://api.themoviedb.org/3/movie/157336/recommendations?api_key=34352ea0b463d37374bea163efd76b36
 ///34352ea0b463d37374bea163efd76b36
+const url = "postgres://bnan55:0000@localhost:5432/movies"
+const port=3001
+
+
 const express = require('express')
 const { handle } = require('express/lib/application');
 const res = require('express/lib/response');
 const recipesData=require("./Move Data/data.json")
 const axios=require("axios").default;
+const cors = require ("cors")
+const bodyparser=require("body-parser")
 
-const app =express()
-const port=3001
+const {Client} = require('pg');
+const client = new Client(url)
+client.connect().then(()=>{
+  app.listen(port,()=>{
+    console.log(`Example App listening on port ${port}`);
+    });
+})
 
-app.get("/",handleFirstRoute)
-app.get("/favorite",handleFavorate)
-app.get("/trending", handleTrending)
-app.get("/search", handleSearch)
-app.get("/recomandations",handelReco)
-app.get("/similar",handelSimilar)
+
+const app =express();
+app.use(cors());
+app.use(bodyparser.urlencoded({extended:false}))
+app.use(bodyparser.json())
+// app.use(express.json())
+
+
+app.get("/",handleFirstRoute);
+app.get("/favorite",handleFavorate);
+app.get("/trending", handleTrending);
+app.get("/search", handleSearch);
+app.get("/recomandations",handelReco);
+app.get("/similar",handelSimilar);
+app.post("/addMove", handelAdd);
+app.get("/getMove",handelGet);
+
+function handelAdd(req,res){
+
+const {title, time, summary, image} = req.body;
+
+
+let sql='INSERT INTO moves(title,time,summary,image) VALUES($1,$2,$3,$4) RETURNING *;'//sql quere
+let values=[title, time, summary, image]
+
+client.query(sql, values).then((result)=>{
+  console.log(result.rows);
+  return res.status(201).json(result.rows);
+}).catch()
+
+res.send("Adding to db in progress")
+}
+
+function handelGet(req , res){
+  let sql = 'SELECT * from moves;'
+  client.query(sql).then((result) => {
+    console.log(result);
+    res.json(result.rows);
+  }).catch((err) => {
+    
+  });
+}
+
 
 //axios=>git data Moves
 function handleTrending(req , res){
@@ -132,9 +180,7 @@ app.use(function (error, req, res, text) {
   });
 
 //listen
-app.listen(port,()=>{
-console.log(`Example App listening on port ${port}`);
-})
+
 
 //constructor for old data
 function newData(title , poster_path,overview){
