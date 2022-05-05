@@ -5,6 +5,8 @@
 ## WRRC
 ![WRRC pic](./assest/Capture2.PNG)
 
+![WRRC pic](./assest/Capture3.PNG)
+
 **My Project tree**
 
 ![WRRC pic](./assest/Capture22.PNG)
@@ -17,3 +19,10 @@
 ## Project Features
 <!-- What are the features included in you app -->
 **It filters all information into information that is useful to the user**
+What observations or questions do you have about what you’ve learned so far?
+
+Nothing.
+
+How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
+
+It take a hour.
