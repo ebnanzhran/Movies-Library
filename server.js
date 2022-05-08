@@ -38,9 +38,41 @@ app.get("/recomandations",handelReco);
 app.get("/similar",handelSimilar);
 app.post("/addMove", handelAdd);
 app.get("/getMove",handelGet);
+app.post("/update",handelUpdate);
+app.post("/delet",handelDelet);
+app.post("/getElementById",handelGetV2);
 
+//Get element by id
+function handelGetV2(req,res){
+  let sql="SELECT * from moves where id = $1"
+  let valus=[]
+  valus.push(req.query.id)
+  client.query(sql,valus)
+  .then(result=>{
+    console.log("Git Item was success");
+    return res.status(201).json(result.rows);  
+  })
+  .catch((error)=>{
+    console.log(error);
+    res.send("Element not found");
+  })
+
+}
+
+//Delete from table
+function handelDelet(req,res){
+let sql=`DELETE FROM moves WHERE id =$1`
+let values=[]
+values.push(req.query.id)
+client.query(sql,values)
+.then((result)=>{
+  return res.status(201).json(result.rows);
+})
+.catch()
+}
+
+//Add to table
 function handelAdd(req,res){
-
 const {title, time, summary, image} = req.body;
 
 
@@ -52,9 +84,24 @@ client.query(sql, values).then((result)=>{
   return res.status(201).json(result.rows);
 }).catch()
 
-res.send("Adding to db in progress")
+// res.send("Adding to db in progress")
 }
 
+//update table
+function handelUpdate(req,res){
+
+const {title, time, summary, image} = req.body;
+let sql=`UPDATE moves SET title=($1),time=($2),summary=($3),image=($4) WHERE id=${req.query.id};`//sql quere
+let values=[title, time, summary, image]
+
+client.query(sql,values).then((result)=>{
+  console.log(result.rows);
+  return res.status(201).json(result.rows);
+}).catch()
+
+// res.send("Adding to db in progress")
+}
+//Get data from table
 function handelGet(req , res){
   let sql = 'SELECT * from moves;'
   client.query(sql).then((result) => {
@@ -178,8 +225,6 @@ app.use(function (error, req, res, text) {
     res.type('text/plain');
     res.send('Page Not Found');
   });
-
-//listen
 
 
 //constructor for old data
