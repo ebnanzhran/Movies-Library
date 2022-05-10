@@ -25,11 +25,20 @@ It was like Tdy for me in task 14 because for the first time I am dealing with t
 <!-- What are the features included in you app -->
 **It filters all information into information that is useful to the user**
 
+**It add information **
+**get specific data**
+What observations or questions do you have about what you’ve learned so far?
+
+
 **--------------------------------**
 ## What observations or questions do you have about what you’ve learned so far?
 
 I learned how to deal with the language smoothly and write any code by searching for the idea to be applied
 
+
+It take a hour.
+
 ## How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
 
 It half an hour.
+
