@@ -19,6 +19,8 @@
 ## Project Features
 <!-- What are the features included in you app -->
 **It filters all information into information that is useful to the user**
+**It add information **
+**get specific data**
 What observations or questions do you have about what you’ve learned so far?
 
 Nothing.
