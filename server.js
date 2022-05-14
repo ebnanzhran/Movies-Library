@@ -1,12 +1,14 @@
 'use strict'
+require('dotenv').config();
 
+const express = require('express')
 ///https://api.themoviedb.org/3/movie/157336/recommendations?api_key=34352ea0b463d37374bea163efd76b36
 ///34352ea0b463d37374bea163efd76b36
 const url = "postgres://bnan55:0000@localhost:5432/movies"
-const port=3001
+const port=process.env.PORT
 
 
-const express = require('express')
+
 const { handle } = require('express/lib/application');
 const res = require('express/lib/response');
 const recipesData=require("./Move Data/data.json")
@@ -15,7 +17,12 @@ const cors = require ("cors")
 const bodyparser=require("body-parser")
 
 const {Client} = require('pg');
-const client = new Client(url)
+// const client = new Client(url)
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
 client.connect().then(()=>{
   app.listen(port,()=>{
     console.log(`Example App listening on port ${port}`);
